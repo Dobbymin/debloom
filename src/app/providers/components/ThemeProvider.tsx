@@ -1,16 +1,11 @@
-import { Global } from '@emotion/react';
+import { ChakraProvider } from '@chakra-ui/react';
 
-import { globalStyles } from '@/shared';
+import { system } from '@/shared';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export const ThemeProvider = ({ children }: Props) => {
-  return (
-    <div>
-      <Global styles={globalStyles} />
-      {children}
-    </div>
-  );
+  return <ChakraProvider value={system}>{children}</ChakraProvider>;
 };
