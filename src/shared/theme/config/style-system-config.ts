@@ -1,6 +1,7 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
-import { globalStyles } from "./global-style";
+import { colorSemanticToken, colorToken, shadowToken } from "../../styles";
+import { globalStyles } from "../global";
 
 const config = defineConfig({
   cssVarsRoot: ":where(:root, :host)",
@@ -10,7 +11,11 @@ const config = defineConfig({
 
   theme: {
     tokens: {
-      colors: {},
+      colors: colorToken,
+      shadows: shadowToken,
+    },
+    semanticTokens: {
+      colors: colorSemanticToken,
     },
   },
 });
