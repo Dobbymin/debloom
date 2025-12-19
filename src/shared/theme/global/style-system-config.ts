@@ -1,10 +1,10 @@
-import { createSystem, defaultConfig, defineConfig } from '@chakra-ui/react';
+import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
-import { globalStyles } from './global-style';
+import { globalStyles } from "./global-style";
 
 const config = defineConfig({
-  cssVarsRoot: ':where(:root, :host)',
-  cssVarsPrefix: 'ck',
+  cssVarsRoot: ":where(:root, :host)",
+  cssVarsPrefix: "ck",
 
   globalCss: globalStyles,
 

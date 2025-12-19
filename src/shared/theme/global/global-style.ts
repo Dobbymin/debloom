@@ -1,10 +1,10 @@
 export const globalStyles = {
-  '*': {
-    '&::-webkit-scrollbar': {
-      display: 'none',
+  "*": {
+    "&::-webkit-scrollbar": {
+      display: "none",
     },
-    msOverflowStyle: 'none' /* IE and Edge */,
-    scrollbarWidth: 'none' /* Firefox */,
+    msOverflowStyle: "none" /* IE and Edge */,
+    scrollbarWidth: "none" /* Firefox */,
   },
-  'html, body': {},
+  "html, body": {},
 };

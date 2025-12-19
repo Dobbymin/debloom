@@ -1,1 +1,1 @@
-export * from './TILPage';
+export * from "./TILPage";

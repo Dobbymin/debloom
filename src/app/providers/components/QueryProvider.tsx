@@ -1,7 +1,7 @@
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-import { queryClient } from '@/shared';
+import { queryClient } from "@/shared";
 
 type Props = {
   children: React.ReactNode;

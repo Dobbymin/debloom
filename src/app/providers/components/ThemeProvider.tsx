@@ -1,6 +1,6 @@
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider } from "@chakra-ui/react";
 
-import { system } from '@/shared';
+import { system } from "@/shared";
 
 type Props = {
   children: React.ReactNode;

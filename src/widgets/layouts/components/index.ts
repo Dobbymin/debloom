@@ -1,2 +1,2 @@
-export * from './header';
-export * from './navigator';
+export * from "./header";
+export * from "./navigator";

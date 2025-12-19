@@ -1,4 +1,4 @@
-import { QueryProvider, ThemeProvider } from './components';
+import { QueryProvider, ThemeProvider } from "./components";
 
 type Props = {
   children: React.ReactNode;

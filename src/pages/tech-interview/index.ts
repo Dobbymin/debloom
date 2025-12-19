@@ -1,1 +1,1 @@
-export * from './TechInterview';
+export * from "./TechInterview";

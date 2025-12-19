@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes } from "react-router";
 
-import { LoginPage, MainPage, PomodoroPage, SettingPage, SignupPage, TILPage, TechInterview } from '@/pages';
-import { ROUTE_PATHS } from '@/shared';
-import { RootLayout } from '@/widgets';
+import { LoginPage, MainPage, PomodoroPage, SettingPage, SignupPage, TILPage, TechInterview } from "@/pages";
+import { ROUTE_PATHS } from "@/shared";
+import { RootLayout } from "@/widgets";
 
 export const Router = () => {
   return (
