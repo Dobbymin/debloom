@@ -1,15 +1,24 @@
 import { Outlet } from 'react-router';
 
+import { Box, Flex } from '@chakra-ui/react';
+
 import { Header, Navigator } from '../components';
 
 export const RootLayout = () => {
   return (
-    <div>
+    <Flex
+      direction='column'
+      maxW={{ base: '100vw', lg: '900px' }}
+      maxH={{ base: '100vh', md: '750px' }}
+      w='100vw'
+      h='100vh'
+      mx='auto'
+    >
       <Header />
-      <main>
+      <Box w='full' as='main' flex='1'>
         <Outlet />
-      </main>
+      </Box>
       <Navigator />
-    </div>
+    </Flex>
   );
 };
