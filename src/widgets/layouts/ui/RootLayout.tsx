@@ -15,7 +15,7 @@ export const RootLayout = () => {
       mx='auto'
     >
       <Header />
-      <Box w='full' as='main' flex='1'>
+      <Box w='full' as='main' flex={1}>
         <Outlet />
       </Box>
       <Navigator />

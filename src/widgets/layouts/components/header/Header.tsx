@@ -2,7 +2,7 @@ import { LuSettings, LuSun } from 'react-icons/lu';
 import { Link } from 'react-router';
 
 import Logo from '/logo/logo-light.webp';
-import { Box, Flex, Icon, IconButton, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, HStack, Icon, IconButton, Image, Text } from '@chakra-ui/react';
 
 import { ROUTE_PATHS } from '@/shared';
 
@@ -19,12 +19,12 @@ export const Header = () => {
         px={4}
       >
         <Link to={ROUTE_PATHS.ROOT}>
-          <Flex alignItems='center' gap={2}>
+          <HStack>
             <Image src={Logo} alt='Debloom Logo' boxSize={6} borderRadius='full' />
             <Text fontWeight='bold'>Debloom</Text>
-          </Flex>
+          </HStack>
         </Link>
-        <Flex alignItems='center' gap={2}>
+        <HStack>
           <IconButton aria-label='dark-mode' variant='ghost' rounded='full' _hover={{ bg: 'gray.100' }}>
             <Icon as={LuSun} boxSize={6} />
           </IconButton>
@@ -33,7 +33,7 @@ export const Header = () => {
               <Icon as={LuSettings} boxSize={6} />
             </IconButton>
           </Link>
-        </Flex>
+        </HStack>
       </Flex>
     </Box>
   );
