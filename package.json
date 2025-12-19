@@ -2,12 +2,23 @@
   "name": "debloom",
   "private": true,
   "version": "0.0.0",
+  "packageManager": "pnpm@10.7.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "lint": "eslint --cache .",
+    "lint:fix": "eslint --cache . --fix",
+    "preview": "vite preview",
+    "prettier:write": "prettier --write .",
+    "tsc": "tsc --noEmit",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "dependencies": {
     "@chakra-ui/react": "^3.30.0",
