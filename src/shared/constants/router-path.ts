@@ -5,6 +5,7 @@ export const ROUTE_PATHS = {
   SIGNUP: '/signup',
   SETTING: '/setting',
   POMODORO: '/pomodoro',
+  TODO: '/todo',
   TECH_INTERVIEW: '/tech-interview',
   TIL: '/TIL',
 };
