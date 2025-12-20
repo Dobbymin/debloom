@@ -1,3 +1,12 @@
+import { Flex } from "@chakra-ui/react";
+
+import { CalendarSection, TodoSection } from "@/features";
+
 export const MainPage = () => {
-  return <div>MainPage</div>;
+  return (
+    <Flex w="full">
+      <CalendarSection />
+      <TodoSection />
+    </Flex>
+  );
 };
