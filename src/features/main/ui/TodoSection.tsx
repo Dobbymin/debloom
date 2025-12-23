@@ -1,78 +1,68 @@
 import { useState } from "react";
 import { FaUserFriends } from "react-icons/fa";
-import { FiPlus } from "react-icons/fi";
+import { FiCheck, FiPlus } from "react-icons/fi";
 import { PiFlowerFill } from "react-icons/pi";
 
 import { Box, Button, Flex, Icon, Input, Text } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
 
-import { postTodoAPI } from "../apis";
+import { useSelectedDate } from "@/entities";
+
+import { postTodoAPI, updateTodoAPI } from "../apis";
 import { Category } from "../components";
 import { TODO_QUERY_KEYS } from "../constants";
 import { useGetTodos } from "../hooks";
 
 export const TodoSection = () => {
   const queryClient = useQueryClient();
-  const { data: todoData } = useGetTodos();
+  const { selectedDate } = useSelectedDate();
+  const requestDate = selectedDate ?? dayjs().format("YYYY-MM-DD");
+
+  const { data: todoData } = useGetTodos(requestDate);
+
   const [activeInputId, setActiveInputId] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
 
   const { mutate: createTodoMutate } = useMutation({
-    mutationFn: (variables: { categoryId: number; content: string }) => postTodoAPI(variables.content), // Note: API currently only takes string, need to verify strictness or update API
+    mutationFn: (variables: { categoryName: string; content: string }) =>
+      postTodoAPI({ categoryName: variables.categoryName, todoDate: requestDate, content: variables.content }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: TODO_QUERY_KEYS.todos.all });
+      queryClient.invalidateQueries({
+        queryKey: requestDate ? TODO_QUERY_KEYS.todos.list(requestDate) : TODO_QUERY_KEYS.todos.all,
+      });
     },
   });
 
-  console.log(todoData);
+  const { mutate: updateTodoMutate } = useMutation({
+    mutationFn: ({ todoId, isCompleted }: { todoId: number; isCompleted: boolean }) =>
+      updateTodoAPI(todoId, isCompleted),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: requestDate ? TODO_QUERY_KEYS.todos.list(requestDate) : TODO_QUERY_KEYS.todos.all,
+      });
+    },
+  });
 
-  /*
-  useEffect(() => {
-    if (todoData) {
-      const dataToSet = Array.isArray(todoData) ? todoData : (todoData as any).data;
-
-      if (Array.isArray(dataToSet)) {
-        setDailyTodos(dataToSet);
-      }
-    }
-  }, [todoData]);
-  */
-
-  const createTodo = (categoryId: number) => {
+  const createTodo = (categoryName: string) => {
     if (!inputValue.trim()) return;
 
-    // Assuming postTodoAPI needs to be updated to accept categoryId,
-    // but for now connecting to existing function signature.
-    createTodoMutate({ categoryId, content: inputValue });
+    createTodoMutate({ categoryName, content: inputValue });
     setInputValue("");
   };
 
-  const toggleTodoStatus = (todoId: number) => {
-    // TODO: Implement toggle API
-    console.log("Toggle todo:", todoId);
-    /*
-    setDailyTodos((prev) =>
-      prev.map((daily) => ({
-        ...daily,
-        categories: daily.categories.map((category) => ({
-          ...category,
-          todos: category.todos.map((todo) =>
-            todo.todosId === todoId ? { ...todo, isCompleted: !todo.isCompleted } : todo,
-          ),
-        })),
-      })),
-    );
-    */
+  const toggleTodoStatus = (todoId: number, isCompleted: boolean) => {
+    updateTodoMutate({ todoId, isCompleted: !isCompleted });
   };
 
   return (
     <Flex w="35%" flexDir="column" p={5} maxH="full" overflowY="auto">
       <Category />
       <Flex flexDir="column" gap={5}>
-        {todoData?.data?.map((daily) => (
+        {(todoData?.data ?? []).map((daily) => (
           <Box key={daily.date}>
             <Flex flexDir="column" gap={3}>
-              {daily.categories.map((category) => (
+              {(daily.categories ?? []).map((category) => (
                 <Flex key={category.categoryId} flexDir="column" gap={2}>
                   <Button
                     w="fit-content"
@@ -94,28 +84,30 @@ export const TodoSection = () => {
                     </Flex>
                   </Button>
 
-                  {category.todos.map((todo) => (
-                    <Flex key={todo.todosId} p={2} alignItems="center" gap={4}>
-                      <Box cursor="pointer" onClick={() => toggleTodoStatus(todo.todosId)}>
-                        <Box
-                          color={todo.isCompleted ? "neutral.500" : "neutral.300"}
-                          display="flex"
+                  {(category.todos ?? []).map((todo) => (
+                    <Flex key={todo.todosId} p={2} alignItems="center" gap={3}>
+                      <Box cursor="pointer" onClick={() => toggleTodoStatus(todo.todosId, todo.isCompleted)}>
+                        <Flex
                           alignItems="center"
                           justifyContent="center"
-                          bg={todo.isCompleted ? "neutral.400" : "transparent"}
                           borderRadius="full"
-                          boxSize={4}
+                          boxSize={8}
+                          position="relative"
                         >
-                          <Icon
-                            as={PiFlowerFill}
-                            color={todo.isCompleted ? "neutral.400" : "neutral.300"}
-                            boxSize={8}
-                          />
-                        </Box>
+                          <Icon as={PiFlowerFill} color={todo.isCompleted ? "primary" : "neutral.400"} boxSize={8} />
+                          <Flex
+                            position="absolute"
+                            alignItems="center"
+                            justifyContent="center"
+                            boxSize={5}
+                            borderRadius="full"
+                            bg={todo.isCompleted ? "primary" : "neutral.400"}
+                          >
+                            {todo.isCompleted && <Icon as={FiCheck} color="white" boxSize={4} />}
+                          </Flex>
+                        </Flex>
                       </Box>
-                      <Text fontSize="sm" textDecoration={todo.isCompleted ? "line-through" : "none"}>
-                        {todo.content}
-                      </Text>
+                      <Text fontSize="sm">{todo.content}</Text>
                     </Flex>
                   ))}
 
@@ -127,7 +119,7 @@ export const TodoSection = () => {
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.nativeEvent.isComposing) {
-                          createTodo(category.categoryId);
+                          createTodo(category.name);
                         }
                       }}
                       mt={1}

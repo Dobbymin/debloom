@@ -2,17 +2,22 @@ import { TbPencilPlus } from "react-icons/tb";
 
 import { Flex, Icon, Text } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import dayjs from "dayjs";
+
+import { useSelectedDate } from "@/entities";
 
 import { postCategoryAPI } from "../../../apis";
 import { TODO_QUERY_KEYS } from "../../../constants";
 
 export const Category = () => {
   const queryClient = useQueryClient();
+  const { selectedDate } = useSelectedDate();
+  const requestDate = selectedDate ?? dayjs().format("YYYY-MM-DD");
 
   const { mutate: createCategoryMutate } = useMutation({
-    mutationFn: (categoryName: string) => postCategoryAPI(categoryName),
+    mutationFn: (categoryName: string) => postCategoryAPI(categoryName, requestDate),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: TODO_QUERY_KEYS.todos.all });
+      queryClient.invalidateQueries({ queryKey: TODO_QUERY_KEYS.todos.list(requestDate) });
     },
   });
 
