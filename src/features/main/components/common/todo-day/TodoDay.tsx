@@ -30,7 +30,6 @@ export const TodoDay = ({ week, i, viewDate, selectDate, onSelectDate, totalTodo
 
   return (
     <Flex
-      gap={1}
       alignItems="center"
       flexDir="column"
       justifyContent="center"
@@ -42,8 +41,8 @@ export const TodoDay = ({ week, i, viewDate, selectDate, onSelectDate, totalTodo
       {/* 꽃 아이콘 */}
       <Flex position="relative" alignItems="center" justifyContent="center">
         {/* 꽃 아이콘 중앙 배경 */}
-        <Box position="absolute" bg="neutral.300" borderRadius="full" w={4} h={4} zIndex={0} />
-        <Icon as={PiFlowerFill} boxSize={9} color="neutral.300" />
+        <Box position="absolute" bg="neutral.300" borderRadius="full" w={3} h={3} zIndex={0} />
+        <Icon as={PiFlowerFill} boxSize={7} color="neutral.300" />
         {count > 0 && (
           <Text position="absolute" color="neutral.700" fontSize="xs" fontWeight="bold" zIndex={1} textAlign="center">
             {count}
