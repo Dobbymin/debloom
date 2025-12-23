@@ -12,17 +12,33 @@ export const getTodosAPI = async (date?: string): Promise<ApiResponse<DailyTodo[
   return response.json();
 };
 
-export const postTodoAPI = async (todoData: string) => {
+export const postTodoAPI = async (payload: { categoryName: string; todoDate: string; content: string }) => {
   const response = await fetch(`${BASE_URL}/api/todos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(todoData),
+    body: JSON.stringify(payload),
   });
 
   if (!response.ok) {
     throw new Error("Failed to create todo");
+  }
+
+  return response.json();
+};
+
+export const updateTodoAPI = async (todoId: number, isCompleted: boolean) => {
+  const response = await fetch(`${BASE_URL}/api/todos/${todoId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ isCompleted }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update todo");
   }
 
   return response.json();

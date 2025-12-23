@@ -5,8 +5,9 @@ import { TODO_QUERY_KEYS } from "../constants";
 
 export const useGetTodos = (date?: string) => {
   return useQuery({
-    queryKey: TODO_QUERY_KEYS.todos.all,
-    queryFn: () => getTodosAPI(date),
+    queryKey: TODO_QUERY_KEYS.todos.list(date ?? ""),
+    queryFn: () => getTodosAPI(date ?? ""),
+    enabled: Boolean(date),
   });
 };
 
