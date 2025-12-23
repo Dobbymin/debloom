@@ -1,4 +1,4 @@
-import { LuAlarmClock, LuCalendarDays, LuMessageSquare, LuPencil } from "react-icons/lu";
+import { FcAlarmClock, FcPlanner, FcReading, FcVoicePresentation } from "react-icons/fc";
 import { Link } from "react-router";
 
 import { Box, Flex, Icon, Text, VStack } from "@chakra-ui/react";
@@ -9,22 +9,22 @@ const NAV_ITEMS = [
   {
     navName: "TODO",
     path: ROUTE_PATHS.TODO,
-    icon: LuCalendarDays,
+    icon: FcPlanner,
   },
   {
     navName: "뽀모도로",
     path: ROUTE_PATHS.POMODORO,
-    icon: LuAlarmClock,
+    icon: FcAlarmClock,
   },
   {
     navName: "기술 면접",
     path: ROUTE_PATHS.TECH_INTERVIEW,
-    icon: LuMessageSquare,
+    icon: FcVoicePresentation,
   },
   {
     navName: "TIL",
     path: ROUTE_PATHS.TIL,
-    icon: LuPencil,
+    icon: FcReading,
   },
 ];
 

@@ -1,4 +1,3 @@
-import "./App.css";
 import { ApplicationProviders } from "./app/providers";
 import { Router } from "./app/routes";
 
