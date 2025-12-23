@@ -8,6 +8,7 @@ import { useSelectedDate } from "@/entities";
 
 import { postTodoAPI, updateTodoAPI } from "../apis";
 import { Category, TodoList } from "../components";
+import { TodoListSkeleton } from "../components";
 import { TODO_QUERY_KEYS } from "../constants";
 import { useGetTodos } from "../hooks";
 
@@ -16,7 +17,7 @@ export const TodoSection = () => {
   const { selectedDate } = useSelectedDate();
   const requestDate = selectedDate ?? dayjs().format("YYYY-MM-DD");
 
-  const { data: todoData } = useGetTodos(requestDate);
+  const { data: todoData, isLoading } = useGetTodos(requestDate);
 
   const [activeInputId, setActiveInputId] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
@@ -56,24 +57,31 @@ export const TodoSection = () => {
     <Flex w="35%" flexDir="column" p={5} maxH="full" overflowY="auto">
       <Category />
       <Flex flexDir="column" gap={5}>
-        {(todoData?.data ?? []).map((daily) => (
-          <Box key={daily.date}>
-            <Flex flexDir="column" gap={3}>
-              {(daily.categories ?? []).map((category) => (
-                <TodoList
-                  key={category.categoryId}
-                  category={category}
-                  activeInputId={activeInputId}
-                  setActiveInputId={setActiveInputId}
-                  inputValue={inputValue}
-                  setInputValue={setInputValue}
-                  createTodo={createTodo}
-                  toggleTodoStatus={toggleTodoStatus}
-                />
-              ))}
-            </Flex>
-          </Box>
-        ))}
+        {isLoading ? (
+          <>
+            <TodoListSkeleton />
+            <TodoListSkeleton />
+          </>
+        ) : (
+          (todoData?.data ?? []).map((daily) => (
+            <Box key={daily.date}>
+              <Flex flexDir="column" gap={3}>
+                {(daily.categories ?? []).map((category) => (
+                  <TodoList
+                    key={category.categoryId}
+                    category={category}
+                    activeInputId={activeInputId}
+                    setActiveInputId={setActiveInputId}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    createTodo={createTodo}
+                    toggleTodoStatus={toggleTodoStatus}
+                  />
+                ))}
+              </Flex>
+            </Box>
+          ))
+        )}
       </Flex>
     </Flex>
   );
