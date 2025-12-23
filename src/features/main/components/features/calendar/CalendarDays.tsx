@@ -19,7 +19,7 @@ export const CalendarDays = ({ viewDate, selectDate, onSelectDate }: Props) => {
   const { data: totalTodoData } = useGetTotalTodos(viewDate.format("YYYY-MM"));
 
   return (
-    <SimpleGrid columns={7} rowGap={5} w="full">
+    <SimpleGrid columns={7} rowGap={2} w="full">
       {Array.from({ length: endWeek - startWeek + 1 }, (_, index) => startWeek + index).map((week) => (
         <Fragment key={week}>
           {Array(7)

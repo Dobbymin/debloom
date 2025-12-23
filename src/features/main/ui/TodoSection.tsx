@@ -52,9 +52,9 @@ export const TodoSection = () => {
   };
 
   return (
-    <Flex w="35%" flexDir="column" p={5} maxH="full" overflowY="auto">
+    <Flex w="45%" flexDir="column" p={4} maxH="full" overflowY="auto">
       <Category />
-      <Flex flexDir="column" gap={5}>
+      <Flex flexDir="column" gap={4}>
         {isLoading ? (
           <>
             <TodoListSkeleton />

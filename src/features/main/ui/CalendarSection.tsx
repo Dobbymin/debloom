@@ -30,7 +30,7 @@ export const CalendarSection = () => {
   };
 
   return (
-    <Flex w="65%" flexDir="column" gap={5} p={5}>
+    <Flex w="55%" flexDir="column" gap={4} p={4}>
       <UserLink />
       <CalendarHeader viewDate={viewDate} onChangeMonth={changeMonth} />
       <CalendarWeekdays weekDays={weekDays} />
