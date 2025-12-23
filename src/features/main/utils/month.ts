@@ -14,7 +14,3 @@ export const getChangedMonth = (viewDate: Dayjs, action: MonthChangeAction): Day
       return viewDate;
   }
 };
-
-export const changeMonth = (setViewDate: (date: Dayjs) => void, viewDate: Dayjs, action: MonthChangeAction): void => {
-  setViewDate(getChangedMonth(viewDate, action));
-};
