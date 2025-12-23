@@ -10,7 +10,7 @@ export const postCategoryAPI = async (categoryName: string, todoDate: string) =>
   });
 
   if (!response.ok) {
-    throw new Error("Failed to create todo");
+    throw new Error("Failed to create category");
   }
 
   return response.json();

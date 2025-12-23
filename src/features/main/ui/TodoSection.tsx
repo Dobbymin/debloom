@@ -13,8 +13,8 @@ import { TODO_QUERY_KEYS } from "../constants";
 import { useGetTodos } from "../hooks";
 
 export const TodoSection = () => {
-  const queryClient = useQueryClient();
   const { selectedDate } = useSelectedDate();
+
   const requestDate = selectedDate ?? dayjs().format("YYYY-MM-DD");
 
   const { data: todoData, isLoading } = useGetTodos(requestDate);
@@ -22,24 +22,22 @@ export const TodoSection = () => {
   const [activeInputId, setActiveInputId] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
 
+  const queryClient = useQueryClient();
+
+  const invalidateTodos = () => {
+    queryClient.invalidateQueries({ queryKey: TODO_QUERY_KEYS.todos.list(requestDate) });
+  };
+
   const { mutate: createTodoMutate } = useMutation({
     mutationFn: (variables: { categoryName: string; content: string }) =>
       postTodoAPI({ categoryName: variables.categoryName, todoDate: requestDate, content: variables.content }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: requestDate ? TODO_QUERY_KEYS.todos.list(requestDate) : TODO_QUERY_KEYS.todos.all,
-      });
-    },
+    onSuccess: invalidateTodos,
   });
 
   const { mutate: updateTodoMutate } = useMutation({
     mutationFn: ({ todoId, isCompleted }: { todoId: number; isCompleted: boolean }) =>
       updateTodoAPI(todoId, isCompleted),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: requestDate ? TODO_QUERY_KEYS.todos.list(requestDate) : TODO_QUERY_KEYS.todos.all,
-      });
-    },
+    onSuccess: invalidateTodos,
   });
 
   const createTodo = (categoryName: string) => {

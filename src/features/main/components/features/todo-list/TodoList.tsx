@@ -25,6 +25,12 @@ export const TodoList = ({
   createTodo,
   toggleTodoStatus,
 }: TodoListProps) => {
+  const onClickCategoryButton = () => {
+    const nextId = activeInputId === category.categoryId ? null : category.categoryId;
+    setActiveInputId(nextId);
+    setInputValue("");
+  };
+
   return (
     <Flex flexDir="column" gap={2}>
       <Button
@@ -34,7 +40,7 @@ export const TodoList = ({
         rounded="full"
         size="sm"
         colorScheme="primary"
-        onClick={() => setActiveInputId(activeInputId === category.categoryId ? null : category.categoryId)}
+        onClick={onClickCategoryButton}
       >
         <Flex px={1} gap={2} alignItems="center">
           <Icon color="gray.400" as={FaUserFriends} />

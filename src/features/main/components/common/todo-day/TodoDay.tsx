@@ -22,7 +22,7 @@ export const TodoDay = ({ week, i, viewDate, selectDate, onSelectDate, totalTodo
   // 오늘 날짜 여부
   const isToday = dayjs().format("YYYYMMDD") === current.format("YYYYMMDD");
   // 보여질 날짜가 아닌 경우 (다른 달의 날짜인 경우)
-  const isNone = current.format("MM") === viewDate.format("MM") ? "" : "none";
+  const isOutOfMonth = current.format("MM") !== viewDate.format("MM");
 
   // 해당 날짜의 투두 개수 찾기
   const todoCountObj = totalTodoData?.data?.find((d) => d.date === current.format("YYYY-MM-DD"));
@@ -35,8 +35,8 @@ export const TodoDay = ({ week, i, viewDate, selectDate, onSelectDate, totalTodo
       flexDir="column"
       justifyContent="center"
       cursor="pointer"
-      opacity={isNone ? 0 : 1}
-      pointerEvents={isNone ? "none" : "auto"}
+      opacity={isOutOfMonth ? 0 : 1}
+      pointerEvents={isOutOfMonth ? "none" : "auto"}
       onClick={() => onSelectDate(current)}
     >
       {/* 꽃 아이콘 */}

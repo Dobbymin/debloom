@@ -11,11 +11,11 @@ import { useSelectedDate } from "@/entities";
 import { CalendarDays, CalendarHeader, CalendarWeekdays, UserLink } from "../components";
 import { type MonthChangeAction, getChangedMonth } from "../utils";
 
-export const CalendarSection = () => {
-  dayjs.extend(weekday);
-  dayjs.extend(isoWeek);
-  dayjs.extend(weekOfYear);
+dayjs.extend(weekday);
+dayjs.extend(isoWeek);
+dayjs.extend(weekOfYear);
 
+export const CalendarSection = () => {
   const [viewDate, setViewDate] = useState(dayjs());
   const { selectedDate, updateSelectedDate } = useSelectedDate();
 
