@@ -62,7 +62,7 @@ export const TodoDay = ({ week, i, viewDate, selectDate, onSelectDate, totalTodo
         w={6}
         h={6}
       >
-        <Text fontSize="xs" fontWeight={isToday || isSelected ? "bold" : "normal"}>
+        <Text fontSize="xs" fontWeight={isToday || isSelected ? "bold" : "semibold"}>
           {current.format("D")}
         </Text>
       </Flex>
