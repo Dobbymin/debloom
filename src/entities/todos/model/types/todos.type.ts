@@ -16,3 +16,8 @@ export type DailyTodo = {
   totalTodosCount: number;
   categories: Category[];
 };
+
+export type MonthlyTodoCount = {
+  date: string;
+  todosCount: number;
+};
