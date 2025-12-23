@@ -1,3 +1,3 @@
-export * from "./calendar-days";
-export * from "./calendar-header";
-export * from "./calendar-weekdays";
+export * from "./CalendarDays";
+export * from "./CalendarHeader";
+export * from "./CalendarWeekdays";
