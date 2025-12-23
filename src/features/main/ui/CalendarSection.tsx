@@ -6,7 +6,7 @@ import isoWeek from "dayjs/plugin/isoWeek";
 import weekOfYear from "dayjs/plugin/weekOfYear";
 import weekday from "dayjs/plugin/weekday";
 
-import { CalendarDays, CalendarHeader, CalendarWeekdays } from "../components";
+import { CalendarDays, CalendarHeader, CalendarWeekdays, UserLink } from "../components";
 import { type MonthChangeAction, getChangedMonth } from "../utils";
 
 export const CalendarSection = () => {
@@ -24,6 +24,7 @@ export const CalendarSection = () => {
 
   return (
     <Flex w="65%" flexDir="column" gap={5} p={5}>
+      <UserLink />
       <CalendarHeader viewDate={viewDate} onChangeMonth={changeMonth} />
       <CalendarWeekdays weekDays={weekDays} />
       <CalendarDays viewDate={viewDate} />
