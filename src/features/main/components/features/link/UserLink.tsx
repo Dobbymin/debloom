@@ -69,7 +69,7 @@ export const UserLink = () => {
           <Icon color="neutral.300" as={IoAdd} boxSize={6} />
         </Flex>
         <LinkLabel>
-          <Text color="transparent" userSelect="none">
+          <Text as="span" color="transparent" userSelect="none">
             -
           </Text>
         </LinkLabel>
