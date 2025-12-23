@@ -1,4 +1,4 @@
-import type { DailyTodo } from "@/entities";
+import type { DailyTodo, MonthlyTodoCount } from "@/entities";
 import { type ApiResponse, BASE_URL } from "@/shared";
 
 export const getTodosAPI = async (date?: string): Promise<ApiResponse<DailyTodo[]>> => {
@@ -23,6 +23,16 @@ export const postTodoAPI = async (todoData: string) => {
 
   if (!response.ok) {
     throw new Error("Failed to create todo");
+  }
+
+  return response.json();
+};
+
+export const totalTodosAPI = async (month: string): Promise<ApiResponse<MonthlyTodoCount[]>> => {
+  const response = await fetch(`${BASE_URL}/api/todos/monthly?month=${month}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch todos");
   }
 
   return response.json();
